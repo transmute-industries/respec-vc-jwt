@@ -10,11 +10,11 @@ But with support for v2, and no JSON-LD processing.
 To use this extension, include the following line in your ReSpec file:
 
 ```html
-<script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc@0.0.0/dist/main.js"></script>
+<script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.3/dist/main.js"></script>
 ```
 
 Note that there might be releases later than the one listed above. 
-Check this repository's [tags](https://github.com/transmute-industries/respec-vc/tags) 
+Check this repository's [tags](https://github.com/transmute-industries/respec-vc-jwt/tags) 
 for all known releases.
 
 # ReSpec Markup
