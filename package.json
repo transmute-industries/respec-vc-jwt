@@ -1,0 +1,28 @@
+{
+  "name": "respec-vc-jwt",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server .",
+    "build": "webpack",
+    "shove": "git add -A ; git commit -m '🌈🚀' ; git push origin main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/transmute-industries/respec-vc-jwt.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/transmute-industries/respec-vc-jwt/issues"
+  },
+  "homepage": "https://github.com/transmute-industries/respec-vc-jwt#readme",
+  "dependencies": {
+    "jose": "^4.14.4"
+  },
+  "devDependencies": {
+    "http-server": "^13.0.0",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.7.2"
+  }
+}
