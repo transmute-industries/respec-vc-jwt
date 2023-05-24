@@ -1,6 +1,6 @@
 # JSON Web Token Verifiable Credentials for ReSpec
 
-Based on https://github.com/transmute-industries/respec-vc
+Based on https://github.com/digitalbazaar/respec-vc
 
 But with support for v2, and no JSON-LD processing.
 
