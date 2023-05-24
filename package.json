@@ -5,7 +5,8 @@
   "scripts": {
     "start": "http-server .",
     "build": "webpack",
-    "shove": "git add -A ; git commit -m '🌈🚀' ; git push origin main"
+    "shove": "git add -A ; git commit -m '🌈🚀' ; git push origin main",
+    "release": "npm patch ; npm run shove"
   },
   "repository": {
     "type": "git",
