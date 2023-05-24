@@ -6,7 +6,8 @@
     "start": "http-server .",
     "build": "webpack",
     "shove": "git add -A ; git commit -m '🌈🚀' ; git push origin main",
-    "release": "npm version patch ; npm run shove"
+    "release": "npm version patch ; npm run shove",
+    "postrelease": "git push --tags"
   },
   "repository": {
     "type": "git",
