@@ -7,10 +7,7 @@ import mermaid  from 'mermaid'
 async function issueVerifiableCredential({credential, kid, jwk}) {
   
   const claimset = credential;
-  const iss = claimset.issuer;
-  if (claimset.issuer.id){
-    iss = claimset.issuer.id
-  }
+  let iss = claimset.issuer.id ? claimset.issuer.id : claimset.issuer;
   
   const header = {alg: 'ES384', typ: 'vc+ld+jwt', iss, kid };
   // create the JWT description
