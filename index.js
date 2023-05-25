@@ -5,14 +5,20 @@ import mermaid  from 'mermaid'
 
 // transform the input credential to a JWT
 async function issueVerifiableCredential({credential, kid, jwk}) {
-  const header = {alg: 'ES384', typ: 'vc+ld+jwt', iss: 'did:example:123', kid, cty: 'vc+ld+json'};
-  const payload = credential;
+  
+  const claimset = credential;
+  const iss = claimset.issuer;
+  if (claimset.issuer.id){
+    iss = claimset.issuer.id
+  }
+  
+  const header = {alg: 'ES384', typ: 'vc+ld+jwt', iss, kid };
   // create the JWT description
   let description = '---------------- Decoded Protected Header ---------------\n' +
     JSON.stringify(header, null, 2);
   description += '\n\n--------------- Decoded Claimset ---------------\n' +
-    JSON.stringify(payload, null, 2);
-  const jwt = await new jose.SignJWT(payload)
+    JSON.stringify(claimset, null, 2);
+  const jwt = await new jose.SignJWT(claimset)
     .setProtectedHeader(header)
     .sign(jwk.privateKey);
   return description + '\n\n--------------- Compact Encoded JSON Web Token ---------------\n\n' + jwt;
@@ -122,7 +128,7 @@ ${graph.edges.map((e)=>{
   }).join('\n')}
 
 `
-  console.log(diagram)
+  // console.log(diagram)
   return diagram
 }
 
@@ -217,7 +223,7 @@ async function createVcExamples() {
   let exampleCount = 0;
   for(const example of vcProofExamples) {
     exampleCount++;
-    const kid = example.getAttribute('data-vc-kid');
+    const kid = example.getAttribute('data-vc-kid') || '#0';
     let credential = {};
     try {
       let exampleText = example.innerText;
@@ -233,7 +239,7 @@ async function createVcExamples() {
     let jwt;
     try {
       jwt = await issueVerifiableCredential({
-        credential, kid: kid || '#0', jwk});
+        credential, kid, jwk});
     } catch(e) {
       console.error(
         'respec-vc error: Failed to convert Credential to JWT.',
