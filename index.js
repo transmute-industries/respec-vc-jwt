@@ -266,8 +266,7 @@ async function createVcExamples() {
       exampleText = exampleText.replace(/\/\/ .*$/gm, '');
       credential = JSON.parse(exampleText);
     } catch(e) {
-      console.error('respec-vc error: Failed to create Verifiable Credential.',
-        e, example.innerText);
+      console.info(e);
       continue;
     }
 
@@ -277,9 +276,7 @@ async function createVcExamples() {
       jwt = await issueVerifiableCredential({
         credential, alg, kid, jwk});
     } catch(e) {
-      console.error(
-        'respec-vc error: Failed to convert Credential to JWT.',
-        e, example.innerText);
+      console.info(e);
       continue;
     }
 
