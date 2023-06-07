@@ -2,23 +2,59 @@ import * as jose from 'jose';
 import mermaid  from 'mermaid'
 
 
+const sortHeader = (header) => {
+  const {alg, typ, cty, iss, kid, ...rest} = header
+  return JSON.parse(JSON.stringify({alg, typ, cty, iss, kid, ...rest}))
+}
 
 // transform the input credential to a JWT
-async function issueVerifiableCredential({credential, kid, jwk}) {
-  
+async function issueVerifiableCredential({credential, alg, kid, jwk}) {
+  const timestampMillis = Date.now();
+  const timestampSeconds = Math.floor(timestampMillis / 1000);
+
+  let header = { alg };
   const claimset = credential;
-  let iss = claimset.issuer.id ? claimset.issuer.id : claimset.issuer;
-  
-  const header = {alg: 'ES384', typ: 'vc+ld+jwt', iss, kid };
+  let iss;
+  if (credential.issuer){
+    iss = claimset.issuer.id ? claimset.issuer.id : claimset.issuer;
+    header.typ = `vc+ld+jwt`;
+    header.iss = iss;
+    header.iat = timestampSeconds
+  }
+  if (credential.holder){
+    iss = claimset.holder.id ? claimset.holder.id : claimset.holder;
+    header.typ = `vp+ld+jwt`;
+    header.iss = iss;
+    header.iat = timestampSeconds
+    header.nonce = "n-0S6_WzA2Mj";
+    header.aud = "https://contoso.example";
+  }
+  if (kid === ''){
+    delete header.kid
+  }
+  header = sortHeader(header);
+  let jwt;
+  if (alg === 'none'){
+    header.typ = `vp+ld+jwt`;
+    delete header.kid
+    delete header.iat
+    delete header.nonce
+    delete header.aud
+    jwt = `${jose.base64url.encode(JSON.stringify(header))}.${jose.base64url.encode(JSON.stringify(claimset))}.`
+  } else {
+    jwt = await new jose.SignJWT(claimset)
+      .setProtectedHeader(header)
+      .sign(jwk.privateKey);
+  }
   // create the JWT description
-  let description = '---------------- Decoded Protected Header ---------------\n' +
-    JSON.stringify(header, null, 2);
-  description += '\n\n--------------- Decoded Claimset ---------------\n' +
-    JSON.stringify(claimset, null, 2);
-  const jwt = await new jose.SignJWT(claimset)
-    .setProtectedHeader(header)
-    .sign(jwk.privateKey);
-  return description + '\n\n--------------- Compact Encoded JSON Web Token ---------------\n\n' + jwt;
+  return `
+---------------- Decoded ${alg === 'none' ? 'Unprotected' : 'Protected'} Header ----------------
+${JSON.stringify(header, null, 2)}
+---------------- Decoded ${alg === 'none' ? 'Unprotected' : 'Protected'} Claimset ----------------
+${JSON.stringify(claimset, null, 2)}
+---------------- Compact Encoded JSON Web Token ----------------
+${jwt}
+`
 };
 
 let nodeCount = 0;
@@ -54,7 +90,8 @@ const objectToGraph = (item, graph, parent) => {
     if (parent){
       addEdge(parent.id, '', n.id, graph)
     } else {
-      n = addNode('Verifiable Credential', graph)
+      let type = Array.isArray(item.type) ? item.type[0]: item.type
+      n = addNode(type, graph)
     }
     for (const key of Object.keys(item)){
       const value = item[key];
@@ -63,7 +100,7 @@ const objectToGraph = (item, graph, parent) => {
       } else {
         if (Array.isArray(value)){
           value.forEach((v) => {
-            if (v !== 'VerifiableCredential'){
+            if (v !== 'VerifiableCredential' && v !== 'VerifiablePresentation'){
               const n2 = addNode(key, graph)
               addEdge(n.id, '', n2.id, graph)
               objectToGraph(v, graph, n2)
@@ -220,7 +257,9 @@ async function createVcExamples() {
   let exampleCount = 0;
   for(const example of vcProofExamples) {
     exampleCount++;
+    const alg = example.getAttribute('data-vp-alg') || 'ES384';
     const kid = example.getAttribute('data-vc-kid') || '#0';
+
     let credential = {};
     try {
       let exampleText = example.innerText;
@@ -236,7 +275,7 @@ async function createVcExamples() {
     let jwt;
     try {
       jwt = await issueVerifiableCredential({
-        credential, kid, jwk});
+        credential, alg, kid, jwk});
     } catch(e) {
       console.error(
         'respec-vc error: Failed to convert Credential to JWT.',

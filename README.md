@@ -24,8 +24,10 @@ To use this extension, you must add the `vc-jwt` class to your examples
 and optionally provide a digital proof verification method (e.g., 
 a URL to a public key) via the `data-vc-kid` attribute.
 
+## Secured Verifiable Credential
+
 ```html
-<pre class="example nohighlight vc" title="Usage of the id property"
+<pre class="example nohighlight vc-jwt" title="Usage of the id property"
   data-vc-kid="https://example.edu/issuers/565049#key-1">
 {
   "@context": [
@@ -46,3 +48,29 @@ a URL to a public key) via the `data-vc-kid` attribute.
 }
 </pre>
 ```
+
+## Unsecured Verifiable Presentation
+
+```html
+<pre class="example nohighlight vc-jwt" title="unsecured example"
+  data-vp-alg="none">
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  <span class="highlight">"id": "http://example.edu/credentials/3732"</span>,
+  "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+  "issuer": "https://example.edu/issuers/565049",
+  "issuanceDate": "2010-01-01T00:00:00Z",
+  "credentialSubject": {
+    <span class="highlight">"id": "did:example:ebfeb1f712ebc6f1c276e12ec21"</span>,
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    }
+  }
+}
+</pre>
+```
+

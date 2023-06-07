@@ -176,9 +176,26 @@ pre .comment {
 }
       </pre>
 
-      
-
-      
+      <pre class="example nohighlight vc-jwt" title="A Secured Verifiable Presentation"
+        data-vc-kid=''>
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "id": "urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5",
+  "type": ["VerifiablePresentation"],
+  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
+}
+      </pre>
+      <pre class="example nohighlight vc-jwt" title="An Unsecured Verifiable Presentation"
+        data-vp-alg='none'>
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "type": ["VerifiablePresentation"]
+}
+      </pre>
     </section>
   </body>
 </html>
