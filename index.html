@@ -46,7 +46,7 @@ pre .comment {
     </section>
     <section>
       <h2>Credentials</h2>
-      <pre class="example nohighlight vc-jwt" title="A Verifiable Credential">
+      <pre class="example nohighlight vc-jose-cose-vc-example" title="A Verifiable Credential">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -71,7 +71,7 @@ pre .comment {
   }
 }
       </pre>  
-      <pre class="example nohighlight vc-jwt" title="A credential with multiple subjects">
+      <pre class="example nohighlight vc-jose-cose-vc-example" title="A credential with multiple subjects">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -97,7 +97,35 @@ pre .comment {
   }]
 }
       </pre>
+      <pre class="example nohighlight vc-jose-cose-vc-example" title="An unsecured credential with multiple subjects" data-alg="none" data-typ="vc+ld+json+jwt" data-cty="vc+ld+json">
+        {
+          "@context": [
+            "https://www.w3.org/ns/credentials/v2",
+            "https://www.w3.org/ns/credentials/examples/v2"
+          ],
+          "id": "https://contoso.example/credentials/23894672394",
+          "type": ["VerifiableCredential", "K9UnitCredential"],
+          "issuer": "https://contoso.example",
+          "validFrom": "2021-04-05T14:27:42Z",
+          <span class="highlight">"credentialStatus": {
+            "id": "https://contoso.example/credentials/status/3#94567",
+            "type": "StatusList2021Entry",
+            "statusPurpose": "revocation",
+            "statusListIndex": "94567",
+            "statusListCredential": "https://contoso.example/credentials/status/3"
+          }</span>,
+          "credentialSubject": [{
+            "id": "did:example:2222",
+            "type": "Person"
+          },{
+            "id": "did:example:3333",
+            "type": "Dog"
+          }]
+        }
+              </pre>
     </section>
+
+    
     <section>
       <h2>Presentations</h2>
       <pre class="example nohighlight vc-jose-cose-vp-example" title="A Secured Verifiable Presentation">
@@ -110,7 +138,7 @@ pre .comment {
   "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
 }
               </pre>
-      <pre class="example nohighlight vc-jose-cose-vp-example" title="An Unsecured Verifiable Presentation" >
+      <pre class="example nohighlight vc-jose-cose-vp-example" title="An Unsecured Verifiable Presentation" data-alg="none" data-typ="vp+ld+json+jwt" data-cty="vp+ld+json">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2"
