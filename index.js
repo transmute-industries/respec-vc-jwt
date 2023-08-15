@@ -1,10 +1,22 @@
 
-import renderRespecExampleTabs from './respec-example-tabs'
+import mermaid from 'mermaid';
+
+import renderRespecPresentationExampleTabs from './presentations'
+
+import { addExampleStyles } from './styles'
 
 async function createVcExamples() {
+  mermaid.init()
+  
+  // add styles for examples
+  addExampleStyles();
   // process every example that needs a vc-proof
-  const examples = document.querySelectorAll(".vc-jwt");
-  await renderRespecExampleTabs(examples)
+  // const credentialExamples = document.querySelectorAll(".vc-jwt");
+  // await renderRespecCredentialExampleTabs(credentialExamples)
+
+  const presentationExamples = document.querySelectorAll(".vc-jose-cose-vp-example");
+  await renderRespecPresentationExampleTabs(presentationExamples)
+
 }
 
 // setup exports on window

@@ -1,14 +1,10 @@
 import mermaid  from 'mermaid'
 
- async function renderMermaid(){
-  mermaid.initialize({ startOnLoad: true });
-  await mermaid.run({
+export async function renderMermaid(){
+  return mermaid.run({
     querySelector: '.respec-mermaid',
   });
 }
-
-export default renderMermaid;
-
 
 let nodeCount = 0;
 
@@ -116,6 +112,6 @@ ${graph.edges.map((e)=>{
 
 `
   // console.log(diagram)
-  return diagram
+  return diagram.trim()
 }
 
