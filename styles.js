@@ -67,7 +67,7 @@ export function addExampleStyles() {
     display: block;
   }
 
-  // begin vp styles...
+  /* begin vp styles... */
 
   .vp-tabbed {
     overflow-x: hidden;
