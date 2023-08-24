@@ -13,6 +13,7 @@ const renderRespecCredentialExampleTabs = async (examples) =>{
     try {
       const header = JSON.parse(JSON.stringify({
         alg: example.getAttribute('data-alg') || 'ES384',
+        kid: example.getAttribute('data-kid') || undefined,
         typ: example.getAttribute('data-typ') || undefined,
         cty: example.getAttribute('data-cty') || undefined
       }))
@@ -46,11 +47,17 @@ const renderRespecCredentialExampleTabs = async (examples) =>{
     });
     tabs.appendChild(button2);
 
-    const button3 = document.createElement('input');
-    button3.setAttribute('type', 'radio');
-    button3.setAttribute('id', `vc-tab-${index}-3`);
-    button3.setAttribute('name', `vc-tabs-${index}`);
-    tabs.appendChild(button3);
+    // const button3 = document.createElement('input');
+    // button3.setAttribute('type', 'radio');
+    // button3.setAttribute('id', `vc-tab-${index}-3`);
+    // button3.setAttribute('name', `vc-tabs-${index}`);
+    // tabs.appendChild(button3);
+
+    const button4 = document.createElement('input');
+    button4.setAttribute('type', 'radio');
+    button4.setAttribute('id', `vc-tab-${index}-4`);
+    button4.setAttribute('name', `vc-tabs-${index}`);
+    tabs.appendChild(button4);
 
     const labels = document.createElement("ul");
     labels.setAttribute('class', 'vc-tabs');
@@ -66,10 +73,15 @@ const renderRespecCredentialExampleTabs = async (examples) =>{
     label2.innerHTML = `<label for='${button2.getAttribute('id')}'>text/vnd.mermaid</label>`;
     labels.appendChild(label2)
 
-    const label3 = document.createElement("li");
-    label3.setAttribute('class', 'vc-tab');
-    label3.innerHTML = `<label for='${button3.getAttribute('id')}'>application/vc+ld+json+jwt</label>`;
-    labels.appendChild(label3)
+    // const label3 = document.createElement("li");
+    // label3.setAttribute('class', 'vc-tab');
+    // label3.innerHTML = `<label for='${button3.getAttribute('id')}'>application/vc+ld+json+jwt</label>`;
+    // labels.appendChild(label3)
+
+    const label4 = document.createElement("li");
+    label4.setAttribute('class', 'vc-tab');
+    label4.innerHTML = `<label for='${button4.getAttribute('id')}'>application/vc+ld+json+sd-jwt</label>`;
+    labels.appendChild(label4)
 
     const content1 = document.createElement('div');
     content1.setAttribute('class', 'vc-tab-content');
@@ -82,10 +94,15 @@ const renderRespecCredentialExampleTabs = async (examples) =>{
     content2.innerHTML = `<code class="respec-mermaid">${mediaTypes['text/vnd.mermaid']}</code>`;
     tabs.appendChild(content2);
 
-    const content3 = document.createElement('div');
-    content3.setAttribute('class', 'vc-tab-content');
-    content3.innerHTML = `<pre>${mediaTypes['application/vc+ld+json+jwt']}</pre>`;
-    tabs.appendChild(content3);
+    // const content3 = document.createElement('div');
+    // content3.setAttribute('class', 'vc-tab-content');
+    // content3.innerHTML = `<pre>${mediaTypes['application/vc+ld+json+jwt']}</pre>`;
+    // tabs.appendChild(content3);
+
+    const content4 = document.createElement('div');
+    content4.setAttribute('class', 'vc-tab-content');
+    content4.innerHTML = `<pre>${mediaTypes['application/vc+ld+json+sd-jwt']}</pre>`;
+    tabs.appendChild(content4);
 
     container.append(tabs);
 

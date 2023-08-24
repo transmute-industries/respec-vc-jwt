@@ -97,7 +97,32 @@ pre .comment {
   }]
 }
       </pre>
-      <pre class="example nohighlight vc-jose-cose-vc-example" title="An unsecured credential with multiple subjects" data-alg="none" data-typ="vc+ld+json+jwt" data-cty="vc+ld+json">
+      <pre class="example nohighlight vc-jose-cose-vc-example" title="All optional data attributes" data-alg="RS384" data-kid="https://contoso.example/keys/42" data-typ="vc+ld+json+sd-jwt" data-cty="vc+ld+json">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "https://contoso.example/credentials/23894672394",
+  "type": ["VerifiableCredential"],
+  "issuer": {
+    "id": "https://contoso.example"
+  },
+  "validFrom": "2021-04-05T14:27:42Z",
+  <span class="highlight">"credentialStatus": {
+    "id": "https://contoso.example/credentials/status/3#94567",
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": "94567",
+    "statusListCredential": "https://contoso.example/credentials/status/3"
+  }</span>,
+  "credentialSubject": {
+    "id": "did:example:6789",
+    "type": "Person"
+  }
+}
+      </pre>  
+      <pre class="example nohighlight vc-jose-cose-vc-example" title="An unsecured credential with multiple subjects" data-alg="none" data-typ="vc+ld+json+sd-jwt" data-cty="vc+ld+json">
         {
           "@context": [
             "https://www.w3.org/ns/credentials/v2",
