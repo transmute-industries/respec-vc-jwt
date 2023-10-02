@@ -16,7 +16,7 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_eventHandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/eventHandler */ \"./src/eventHandler.js\");\n\n\nself.allowCrossOrigin();\n\nself.addEventListener(\"message\", _src_eventHandler__WEBPACK_IMPORTED_MODULE_0__.eventHandler);\n\n//# sourceURL=webpack://respec-vc-jwt/./index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_eventHandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/eventHandler */ \"./src/eventHandler.js\");\n\n\nself.addEventListener(\"message\", _src_eventHandler__WEBPACK_IMPORTED_MODULE_0__.eventHandler);\n\n//# sourceURL=webpack://respec-vc-jwt/./index.js?");
 
 /***/ }),
 
