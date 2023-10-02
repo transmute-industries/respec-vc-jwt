@@ -13,6 +13,6 @@ See [index.html](./index.html)
 To use this extension, include the following line in your ReSpec file:
 
 ```html
-<script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.5/dist/main.js"></script>
+<script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.13/dist/main.js"></script>
 ```
 
