@@ -1,11 +1,9 @@
 
 
 import yaml from 'yaml'
-// import moment from 'moment';
-import { issuer, holder, text, key } from "@transmute/verifiable-credentials"; 
+import { issuer, text, key } from "@transmute/verifiable-credentials"; 
 
 import * as jose from 'jose'
-
 
 export const generateIssuerClaims = (example)=> {
   const generatedClaimsYaml = yaml.stringify(example).replace(/id\: /g, '!sd id: ').replace(/type\:/g, '!sd type:')
@@ -23,8 +21,6 @@ export const generateHolderDisclosure = (example) => {
   return edited3
 }
 
-
-
 const getSdHtml = (vc) =>{
   const [token, ...disclosure] = vc.split('~');
   const [header, payload, signature] = token.split('.');
@@ -35,26 +31,11 @@ const getSdHtml = (vc) =>{
 <div class="sd-jwt-compact"><span class="sd-jwt-header">${header}</span>.<span class="sd-jwt-payload">${payload}</span>.<span class="sd-jwt-signature">${signature}</span>${disclosures}</div>`
 }
 
-const getVerifiedHtml = (verified)=> {
-return `<div>
-  <pre class="sd-jwt-header">
-// disclosed protected header
-${JSON.stringify(verified.protectedHeader, null, 2).trim()}</pre>
-  <pre class="sd-jwt-payload-verified">
-// disclosed protected claimset
-${JSON.stringify(verified.claimset, null, 2).trim()}</pre>
-</div>
-`
-}
 
 const getDisclosabilityHtml = (claims)=> {
   return `<pre>
 ${claims.trim().replace(/\!sd/g, `<span class="sd-jwt-disclosure">!sd</span>`)}
   </pre>`
-  }
-
-const getDisclosuresHtml = (disclosure)=> {
-  return `<pre>${disclosure.trim().replace(/False/g, `<span class="sd-jwt-disclosure">False</span>`)}</pre>`
   }
 
 const getCredential = async (privateKey, byteSigner, messageType, messageJson) => {
@@ -106,21 +87,26 @@ export const getSdJwtExample = async (privateKey, messageJson) => {
   const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+sd-jwt' : 'application/vp+ld+json+sd-jwt'
   const message = await getBinaryMessage(privateKey, messageType, messageJson)
   const messageEncoded = new TextDecoder().decode(message)
-  const decodedHeader = jose.decodeProtectedHeader(messageEncoded.split('~')[0])
+ 
   const issuerClaims = generateIssuerClaims(messageJson)
   const messageType2 = 'application/ld+yaml'
+
+// const decodedHeader = jose.decodeProtectedHeader(messageEncoded.split('~')[0])
+// Not displaying protected header to save space
+// <h1>Protected</h1>
+// <pre>
+// ${JSON.stringify(decodedHeader, null, 2)}
+// </pre>
   return `
-// ${messageType2}
-<pre>
-${issuerClaims}
-</pre>
-// Protected Header
-<pre>
-${JSON.stringify(decodedHeader, null, 2)}
-</pre>
-// ${messageType}
-<pre>
-${messageEncoded}
-</pre>
+
+<h1>${messageType2}</h1>
+<div>
+${getDisclosabilityHtml(issuerClaims)}
+</div>
+
+<h1>${messageType}</h1>
+<div class="jose-text">
+${getSdHtml(messageEncoded)}
+</div>
   `.trim()
 }

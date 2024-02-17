@@ -28,6 +28,10 @@ function addVcJoseStyles() {
     overflow-x: hidden;
     margin: 0 0;
   }
+
+  .vc-jose-cose-tabbed h1 {
+    font-size: 1em;
+  }
   
   .vc-jose-cose-tabbed [type="radio"] {
     display: none;
@@ -84,18 +88,14 @@ function addVcJoseStyles() {
     display: block;
   }
   
-  .sd-jwt-header {
+  .sd-jwt-header, .jwt-header {
     color: red
   }
-  .sd-jwt-payload {
+  .sd-jwt-payload, .jwt-payload {
     color: green
   }
   
-  .sd-jwt-payload-verified{
-    color: purple
-  }
-  
-  .sd-jwt-signature {
+  .sd-jwt-signature, .jwt-signature {
     color: blue
   }
   
@@ -103,9 +103,15 @@ function addVcJoseStyles() {
     color: purple
   }
   
-  .sd-jwt-compact {
+  .sd-jwt-compact, .jwt-compact {
     background-color: rgba(0,0,0,.03);
-  }`;
+  }
+
+  .cose-text, .jose-text {
+    font-family: monospace;
+  }
+  
+  `;
 
     document.head.appendChild(styles);
 }
