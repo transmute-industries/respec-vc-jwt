@@ -14,7 +14,7 @@ async function processVcJoseCose() {
     const examples = Array.from(document.querySelectorAll(".vc-jose-cose")).filter((e) => !!e.innerText)
     for (const index in examples) {
         const example = examples[index]
-        const alg = example.getAttribute('data-alg') || 'ES384'
+        const alg = 'ES384'
         const json = JSON.parse(example.innerText.replace(/\/\/ .*$/gm, ''))
         const processedData = await processCredential(index, alg, json);
         example.outerHTML = processedData.html

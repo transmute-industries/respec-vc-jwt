@@ -21,6 +21,7 @@
   "homepage": "https://github.com/decentralgabe/respec-vc-jose-cose#readme",
   "dependencies": {
     "@transmute/vc-jwt-sd": "^0.0.5",
+    "@transmute/verifiable-credentials": "^0.2.0",
     "jose": "^4.15.1",
     "moment": "^2.29.4",
     "yaml": "^2.3.2"
