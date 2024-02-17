@@ -31,7 +31,7 @@ const getDisclosuresHtml = (disclosure)=> {
   return `<pre>${disclosure.trim().replace(/False/g, `<span class="sd-jwt-disclosure">False</span>`)}</pre>`
   }
 
-export const getHtml = ({index, vc, vp, verified, claims, disclosure})=>{
+export const getHtml = ({ index })=>{
   // TODO: refactor
   // const tab1Content = getDisclosabilityHtml(claims);
   // const tab2Content = getSdHtml(vc);

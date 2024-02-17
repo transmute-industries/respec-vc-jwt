@@ -1,10 +1,4 @@
-import SD from '@transmute/vc-jwt-sd';
-import {
-    getExampleMetadata,
-    generateIssuerClaims,
-    generateHolderDisclosure,
-    issueAndVerifyWithSdJWt
-} from './src/sd-jwt';
+
 import {getHtml} from './src/getHtml';
 
 async function processVcJoseCose() {
@@ -16,7 +10,7 @@ async function processVcJoseCose() {
         const example = examples[index]
         const alg = 'ES384'
         const json = JSON.parse(example.innerText.replace(/\/\/ .*$/gm, ''))
-        const processedData = await processCredential(index, alg, json);
+        const processedData = await processExample(index, alg, json);
         example.outerHTML = processedData.html
     }
 }
@@ -73,9 +67,7 @@ function addVcJoseStyles() {
   
   .vc-jose-cose-tabbed [type="radio"]:nth-of-type(1):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(1) label,
   .vc-jose-cose-tabbed [type="radio"]:nth-of-type(2):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(2) label,
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(3):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(3) label,
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(4):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(4) label,
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(5):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(5) label {
+  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(3):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(3) label {
     border-bottom-color: #fff;
     background: #fff;
     color: #222;
@@ -83,9 +75,7 @@ function addVcJoseStyles() {
   
   .vc-jose-cose-tabbed [type="radio"]:nth-of-type(1):checked~.vc-jose-cose-tab-content:nth-of-type(1),
   .vc-jose-cose-tabbed [type="radio"]:nth-of-type(2):checked~.vc-jose-cose-tab-content:nth-of-type(2),
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(3):checked~.vc-jose-cose-tab-content:nth-of-type(3),
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(4):checked~.vc-jose-cose-tab-content:nth-of-type(4),
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(5):checked~.vc-jose-cose-tab-content:nth-of-type(5) {
+  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(3):checked~.vc-jose-cose-tab-content:nth-of-type(3) {
     display: block;
   }
   
@@ -115,16 +105,16 @@ function addVcJoseStyles() {
     document.head.appendChild(styles);
 }
 
-export async function processCredential(index, alg, json) {
-    const credentialMetadata = await getExampleMetadata({alg, json});
-    const claims = generateIssuerClaims(json);
-    const disclosure = generateHolderDisclosure(json);
-    const {vc, vp, verified} = await issueAndVerifyWithSdJWt({
-        ...credentialMetadata,
-        claims: SD.YAML.load(claims),
-        disclosure: SD.YAML.load(disclosure)
-    });
-    const html = getHtml({index, vc, vp, verified, claims, disclosure});
+export async function processExample(index, alg, json) {
+    // const credentialMetadata = await getExampleMetadata({alg, json});
+    // const claims = generateIssuerClaims(json);
+    // const disclosure = generateHolderDisclosure(json);
+    // const {vc, vp, verified} = await issueAndVerifyWithSdJWt({
+    //     ...credentialMetadata,
+    //     claims: SD.YAML.load(claims),
+    //     disclosure: SD.YAML.load(disclosure)
+    // });
+    const html = getHtml({index});
     return {html}; // Return the HTML or other data directly
 }
 
