@@ -1,12 +1,8 @@
 
-import * as cose from '@transmute/cose'
-import { issuer, holder } from "@transmute/verifiable-credentials"; 
 
-function buf2hex(buffer) { // buffer is an ArrayBuffer
-  return [...new Uint8Array(buffer)]
-      .map(x => x.toString(16).padStart(2, '0'))
-      .join('');
-}
+import { issuer, holder, text, key } from "@transmute/verifiable-credentials"; 
+
+import * as jose from 'jose'
 
 const getCredential = async (privateKey, byteSigner, messageType, messageJson) => {
   const message = await issuer({
@@ -41,25 +37,26 @@ const getPresentation = async (privateKey, byteSigner, messageType, messageJson)
 }
 
 const getBinaryMessage = async (privateKey, messageType, messageJson) =>{
-  const signer = cose.detached.signer({
-    remote: cose.crypto.signer({
-      secretKeyJwk: privateKey
-    })
-  })
+  
   const byteSigner = {
-      sign: async (payload)=>{
-        return signer.sign({
-          protectedHeader: new Map([[1, -35]]),
-          unprotectedHeader: new Map(),
-          payload
-        })
+    sign: async (bytes) => {
+
+      const jws = await new jose.CompactSign(
+        bytes
+      )
+        .setProtectedHeader({ kid: privateKey.kid, alg: 'ES384' })
+        .sign(await key.importKeyLike({
+          type: 'application/jwk+json',
+          content: new TextEncoder().encode(JSON.stringify(privateKey))
+        }))
+      return text.encoder.encode(jws)
     }
   }
   switch(messageType){
-    case 'application/vc+ld+json+cose': {
+    case 'application/vc+ld+json+jwt': {
       return getCredential(privateKey, byteSigner, messageType, messageJson)
     }
-    case 'application/vp+ld+json+cose': {
+    case 'application/vp+ld+json+jwt': {
       return getPresentation(privateKey, byteSigner, messageType, messageJson)
     }
     default: {
@@ -68,24 +65,24 @@ const getBinaryMessage = async (privateKey, messageType, messageJson) =>{
   }
 }
 
-export const getCoseExample = async (privateKey, messageJson) => {
+export const getJwtExample = async (privateKey, messageJson) => {
   const type = Array.isArray(messageJson.type) ? messageJson.type : [messageJson.type]
-  const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+cose' : 'application/vp+ld+json+cose'
+  const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+jwt' : 'application/vp+ld+json+jwt'
   const message = await getBinaryMessage(privateKey, messageType, messageJson)
-  const messageHex = buf2hex(message)
-  const messageDiag = await cose.cbor.diagnose(message)
+  const messageEncoded = new TextDecoder().decode(message)
+  const decodedHeader = jose.decodeProtectedHeader(messageEncoded)
   return `
-// ${messageType.replace('+cose', '')}
+// ${messageType.replace('+jwt', '')}
 <pre>
 ${JSON.stringify(messageJson, null, 2)}
 </pre>
-// ${messageType} (detached payload)
+// ${messageType}
 <pre>
-${messageHex}
+${messageEncoded}
 </pre>
-// application/cbor-diagnostic
+// Protected Header
 <pre>
-${messageDiag.trim()}
+${JSON.stringify(decodedHeader, null, 2)}
 </pre>
 
   `.trim()

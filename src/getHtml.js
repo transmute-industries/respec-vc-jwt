@@ -31,7 +31,7 @@ const getDisclosuresHtml = (disclosure)=> {
   return `<pre>${disclosure.trim().replace(/False/g, `<span class="sd-jwt-disclosure">False</span>`)}</pre>`
   }
 
-export const getHtml = ({ index, coseExample })=>{
+export const getHtml = ({ index, coseExample, jwtExample })=>{
   // TODO: refactor
   // const tab1Content = getDisclosabilityHtml(claims);
   // const tab2Content = getSdHtml(vc);
@@ -41,13 +41,13 @@ export const getHtml = ({ index, coseExample })=>{
 
   // 3 tabs is the most that fits on 1 screen
   const tab1Content = coseExample;
-  const tab2Content  = 'tab2Content';
+  const tab2Content  = jwtExample;
   const tab3Content  = 'tab3Content';
   
   return `
 <div class="vc-jose-cose-tabbed">
-    <input type="radio" id="vc-jose-cose-tab-${index}-cose" name="vc-jose-cose-tabs-${index}" checked="checked">
-    <input type="radio" id="vc-jose-cose-tab-${index}-jwt" name="vc-jose-cose-tabs-${index}" >
+    <input type="radio" id="vc-jose-cose-tab-${index}-cose" name="vc-jose-cose-tabs-${index}" >
+    <input type="radio" id="vc-jose-cose-tab-${index}-jwt" name="vc-jose-cose-tabs-${index}" checked="checked">
     <input type="radio" id="vc-jose-cose-tab-${index}-sd-jwt" name="vc-jose-cose-tabs-${index}">
     <ul class="vc-jose-cose-tabs">
       <li class="vc-jose-cose-tab">
