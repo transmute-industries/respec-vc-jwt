@@ -31,7 +31,7 @@ const getDisclosuresHtml = (disclosure)=> {
   return `<pre>${disclosure.trim().replace(/False/g, `<span class="sd-jwt-disclosure">False</span>`)}</pre>`
   }
 
-export const getHtml = ({ index })=>{
+export const getHtml = ({ index, coseExample })=>{
   // TODO: refactor
   // const tab1Content = getDisclosabilityHtml(claims);
   // const tab2Content = getSdHtml(vc);
@@ -40,12 +40,10 @@ export const getHtml = ({ index })=>{
   // const tab5Content = getVerifiedHtml(verified);
 
   // 3 tabs is the most that fits on 1 screen
-  const tab1Content = 'tab1Content';
+  const tab1Content = coseExample;
   const tab2Content  = 'tab2Content';
   const tab3Content  = 'tab3Content';
-  // const tab4Content  = 'tab4Content';
-  // const tab5Content  = 'tab5Content';
-
+  
   return `
 <div class="vc-jose-cose-tabbed">
     <input type="radio" id="vc-jose-cose-tab-${index}-cose" name="vc-jose-cose-tabs-${index}" checked="checked">

@@ -1,16 +1,17 @@
 
 import {getHtml} from './src/getHtml';
 
+import { getPrivateKey } from './src/exampleKey';
+import { getCoseExample } from './src/exampleCose';
+
 async function processVcJoseCose() {
     // add styling for examples
     addVcJoseStyles();
-
     const examples = Array.from(document.querySelectorAll(".vc-jose-cose")).filter((e) => !!e.innerText)
     for (const index in examples) {
         const example = examples[index]
-        const alg = 'ES384'
         const json = JSON.parse(example.innerText.replace(/\/\/ .*$/gm, ''))
-        const processedData = await processExample(index, alg, json);
+        const processedData = await processExample(index, json);
         example.outerHTML = processedData.html
     }
 }
@@ -19,7 +20,7 @@ function addVcJoseStyles() {
     const styles = document.createElement('style');
 
     styles.innerHTML += `
-    .vc-jose-cose-tabbed {
+  .vc-jose-cose-tabbed {
     overflow-x: hidden;
     margin: 0 0;
   }
@@ -105,17 +106,11 @@ function addVcJoseStyles() {
     document.head.appendChild(styles);
 }
 
-export async function processExample(index, alg, json) {
-    // const credentialMetadata = await getExampleMetadata({alg, json});
-    // const claims = generateIssuerClaims(json);
-    // const disclosure = generateHolderDisclosure(json);
-    // const {vc, vp, verified} = await issueAndVerifyWithSdJWt({
-    //     ...credentialMetadata,
-    //     claims: SD.YAML.load(claims),
-    //     disclosure: SD.YAML.load(disclosure)
-    // });
-    const html = getHtml({index});
-    return {html}; // Return the HTML or other data directly
+export async function processExample(index, json) {
+    const privateKey = await getPrivateKey()
+    const coseExample = await getCoseExample(privateKey, json)
+    const html = getHtml({index, coseExample});
+    return {html};
 }
 
 window.respecVcJoseCose = {
