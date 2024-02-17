@@ -5,7 +5,7 @@
   <title>Respec Service Worker Plugin Test</title>
   <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
   <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
-  <script src='./respec-plugins/vc-jose-cose.js'></script>
+  <script src='./dist/main.js'></script>
   <script type="text/javascript" class="remove">
     var respecConfig = {
       group: "vc",
@@ -31,7 +31,7 @@
         ],
       maxTocLevel: 2,
       inlineCSS: true,
-      postProcess: [window.postProcessVcJoseCose]
+      postProcess: [window.respecVcJoseCose.processVcJoseCose]
     };
   </script>
 </head>

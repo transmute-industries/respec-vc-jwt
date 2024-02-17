@@ -41,7 +41,8 @@ export const generateHolderDisclosure = (example) => {
   return edited3
 }
 
-export const getExampleMetadata = async ({ alg, json }) => { 
+export const getExampleMetadata = async ({ alg, json }) => {
+  console.log('getExampleMetadata', { alg, json })
   let iss = undefined
 
   if(json.issuer){
@@ -51,7 +52,7 @@ export const getExampleMetadata = async ({ alg, json }) => {
   if (json.holder){
     iss = typeof json.holder === 'string' ? json.holder: json.holder.id
   }
-  
+
   const iat = moment().unix();
   const exp = moment().add(1, 'years').unix();
   const nonce = salter()
