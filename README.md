@@ -1,6 +1,6 @@
 # Verifiable Credential Service Worker Plugin for ReSpec
 
-- [demo](https://transmute-industries.github.io/respec-vc-jwt/)
+- [demo](https://decentralgabe.github.io/respec-vc-jose-cose/)
 
 But with support for v2, and no JSON-LD processing.
 
@@ -16,12 +16,11 @@ then configure respect to use the worker to post process like so:
   <title>Respec Service Worker Plugin Test</title>
   <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
   <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
-  <script src='./respec-plugins/vc-jose-cose.js'></script>
-  <link rel="stylesheet" href="./respec-plugins/vc-jose-cose.css">
+  <script src="https://cdn.jsdelivr.net/gh/decentralgabe/respec-vc-jose-cose/dist/main.js"></script>
   <script type="text/javascript" class="remove">
     var respecConfig = {
       // ...
-      postProcess: [postProcessWithWorker]
+      postProcess: [window.respecVcJoseCose.processVcJoseCose]
     };
   </script>
 </head>
@@ -29,4 +28,4 @@ then configure respect to use the worker to post process like so:
 
 ### Credits
 
-Based on the original plugin here https://github.com/digitalbazaar/respec-vc
+Based on https://github.com/transmute-industries/respec-vc-jwt, which was based on the original plugin here https://github.com/digitalbazaar/respec-vc
