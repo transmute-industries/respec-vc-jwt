@@ -32,56 +32,44 @@ const getDisclosuresHtml = (disclosure)=> {
   }
 
 export const getHtml = ({index, vc, vp, verified, claims, disclosure})=>{
+  // TODO: refactor
+  // const tab1Content = getDisclosabilityHtml(claims);
+  // const tab2Content = getSdHtml(vc);
+  // const tab3Content = getDisclosuresHtml(disclosure);
+  // const tab4Content = getSdHtml(vp);
+  // const tab5Content = getVerifiedHtml(verified);
+
+  // 3 tabs is the most that fits on 1 screen
+  const tab1Content = 'tab1Content';
+  const tab2Content  = 'tab2Content';
+  const tab3Content  = 'tab3Content';
+  // const tab4Content  = 'tab4Content';
+  // const tab5Content  = 'tab5Content';
+
   return `
 <div class="vc-jose-cose-tabbed">
-    <input type="radio" id="vc-jose-cose-tab-${index}-committed" name="vc-jose-cose-tabs-${index}">
-    <input type="radio" id="vc-jose-cose-tab-${index}-issued" name="vc-jose-cose-tabs-${index}" checked="checked">
-    <input type="radio" id="vc-jose-cose-tab-${index}-disclosed" name="vc-jose-cose-tabs-${index}">
-    <input type="radio" id="vc-jose-cose-tab-${index}-presented" name="vc-jose-cose-tabs-${index}">
-    <input type="radio" id="vc-jose-cose-tab-${index}-verified" name="vc-jose-cose-tabs-${index}">
-    
+    <input type="radio" id="vc-jose-cose-tab-${index}-cose" name="vc-jose-cose-tabs-${index}" checked="checked">
+    <input type="radio" id="vc-jose-cose-tab-${index}-jwt" name="vc-jose-cose-tabs-${index}" >
+    <input type="radio" id="vc-jose-cose-tab-${index}-sd-jwt" name="vc-jose-cose-tabs-${index}">
     <ul class="vc-jose-cose-tabs">
-
       <li class="vc-jose-cose-tab">
-        <label for="vc-jose-cose-tab-${index}-committed">Committed</label>
-      </li>
-
-      <li class="vc-jose-cose-tab">
-        <label for="vc-jose-cose-tab-${index}-issued">Issued</label>
-      </li>
-
-      <li class="vc-jose-cose-tab">
-        <label for="vc-jose-cose-tab-${index}-disclosed">Disclosed</label>
-      </li>
-     
-      <li class="vc-jose-cose-tab">
-        <label for="vc-jose-cose-tab-${index}-presented">Presented</label>
+        <label for="vc-jose-cose-tab-${index}-cose">COSE</label>
       </li>
       <li class="vc-jose-cose-tab">
-        <label for="vc-jose-cose-tab-${index}-verified">Verified</label>
+        <label for="vc-jose-cose-tab-${index}-jwt">JWT</label>
       </li>
-      
+      <li class="vc-jose-cose-tab">
+        <label for="vc-jose-cose-tab-${index}-sd-jwt">SD-JWT</label>
+      </li>
     </ul>
-
     <div class="vc-jose-cose-tab-content">
-${getDisclosabilityHtml(claims)}
+${tab1Content}
     </div>
-
     <div class="vc-jose-cose-tab-content">
-${getSdHtml(vc)}
+${tab2Content}
     </div>
-
     <div class="vc-jose-cose-tab-content">
-${getDisclosuresHtml(disclosure)}
-    </div>
-    
-    <div class="vc-jose-cose-tab-content">
-${getSdHtml(vp)}
-    </div>
-    
-    <div class="vc-jose-cose-tab-content">
-${getVerifiedHtml(verified)}
-    </div>
-  
+${tab3Content}
+    </div> 
 </div>`
 }
