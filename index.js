@@ -4,6 +4,9 @@ import {getHtml} from './src/getHtml';
 import { getPrivateKey } from './src/exampleKey';
 import { getCoseExample } from './src/exampleCose';
 import { getJwtExample } from './src/exampleJwt';
+import { getSdJwtExample } from './src/exampleSdJwt';
+
+
 
 async function processVcJoseCose() {
     // add styling for examples
@@ -108,10 +111,11 @@ function addVcJoseStyles() {
 }
 
 export async function processExample(index, json) {
-    const privateKey = await getPrivateKey()
-    const coseExample = await getCoseExample(privateKey, json)
-    const jwtExample = await getJwtExample(privateKey, json)
-    const html = getHtml({index, coseExample, jwtExample});
+    const privateKey = await getPrivateKey();
+    const coseExample = await getCoseExample(privateKey, json);
+    const jwtExample = await getJwtExample(privateKey, json);
+    const sdJwtExample = await getSdJwtExample(privateKey, json);
+    const html = getHtml({index, coseExample, jwtExample, sdJwtExample});
     return {html};
 }
 

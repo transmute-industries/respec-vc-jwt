@@ -79,14 +79,13 @@ export const getCoseExample = async (privateKey, messageJson) => {
 <pre>
 ${JSON.stringify(messageJson, null, 2)}
 </pre>
-// ${messageType} (detached payload)
-<pre>
-${messageHex}
-</pre>
 // application/cbor-diagnostic
 <pre>
 ${messageDiag.trim()}
 </pre>
-
+// ${messageType} (detached payload)
+<pre>
+${messageHex}
+</pre>
   `.trim()
 }

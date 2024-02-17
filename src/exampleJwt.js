@@ -44,7 +44,7 @@ const getBinaryMessage = async (privateKey, messageType, messageJson) =>{
       const jws = await new jose.CompactSign(
         bytes
       )
-        .setProtectedHeader({ kid: privateKey.kid, alg: 'ES384' })
+        .setProtectedHeader({ kid: privateKey.kid, alg: privateKey.alg })
         .sign(await key.importKeyLike({
           type: 'application/jwk+json',
           content: new TextEncoder().encode(JSON.stringify(privateKey))
@@ -76,14 +76,13 @@ export const getJwtExample = async (privateKey, messageJson) => {
 <pre>
 ${JSON.stringify(messageJson, null, 2)}
 </pre>
-// ${messageType}
-<pre>
-${messageEncoded}
-</pre>
 // Protected Header
 <pre>
 ${JSON.stringify(decodedHeader, null, 2)}
 </pre>
-
+// ${messageType}
+<pre>
+${messageEncoded}
+</pre>
   `.trim()
 }
