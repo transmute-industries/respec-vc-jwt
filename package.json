@@ -1,5 +1,5 @@
 {
-  "name": "respec-vc-jwt",
+  "name": "respec-vc-jose-cose",
   "version": "0.0.15",
   "main": "index.js",
   "scripts": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/transmute-industries/respec-vc-jwt.git"
+    "url": "git+https://github.com/decentralgabe/respec-vc-jose-cose.git"
   },
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/transmute-industries/respec-vc-jwt/issues"
+    "url": "https://github.com/decentralgabe/respec-vc-jose-cose/issues"
   },
-  "homepage": "https://github.com/transmute-industries/respec-vc-jwt#readme",
+  "homepage": "https://github.com/decentralgabe/respec-vc-jose-cose#readme",
   "dependencies": {
     "@transmute/vc-jwt-sd": "^0.0.5",
     "jose": "^4.15.1",
