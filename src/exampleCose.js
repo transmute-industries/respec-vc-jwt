@@ -1,6 +1,5 @@
-
 import * as cose from '@transmute/cose'
-import { issuer, holder } from "@transmute/verifiable-credentials"; 
+import {holder, issuer} from "@transmute/verifiable-credentials";
 
 function buf2hex(buffer) { // buffer is an ArrayBuffer
   return [...new Uint8Array(buffer)]
@@ -9,14 +8,13 @@ function buf2hex(buffer) { // buffer is an ArrayBuffer
 }
 
 const getCredential = async (privateKey, byteSigner, messageType, messageJson) => {
-  const message = await issuer({
+  return await issuer({
     alg: privateKey.alg,
     type: messageType,
     signer: byteSigner
   }).issue({
     claimset: new TextEncoder().encode(JSON.stringify(messageJson, null, 2))
-  })
-  return message;
+  });
 }
 
 const getPresentation = async (privateKey, byteSigner, messageType, messageJson) => {
@@ -29,15 +27,14 @@ const getPresentation = async (privateKey, byteSigner, messageType, messageJson)
       credential: content
     }
   })
-  const message = await holder({
+  return await holder({
     alg: privateKey.alg,
     type: messageType,
   }).issue({
     signer: byteSigner,
     presentation: messageJson,
     disclosures: disclosures
-  })
-  return message;
+  });
 }
 
 const getBinaryMessage = async (privateKey, messageType, messageJson) =>{

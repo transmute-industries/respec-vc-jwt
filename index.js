@@ -1,12 +1,8 @@
-
-import {getHtml} from './src/getHtml';
-
+import { getHtml } from './src/getHtml';
 import { getPrivateKey } from './src/exampleKey';
 import { getCoseExample } from './src/exampleCose';
 import { getJwtExample } from './src/exampleJwt';
 import { getSdJwtExample } from './src/exampleSdJwt';
-
-
 
 async function processVcJoseCose() {
     // add styling for examples
@@ -109,9 +105,8 @@ function addVcJoseStyles() {
 
   .cose-text, .jose-text {
     font-family: monospace;
-  }
-  
-  `;
+    color: green;
+  }`;
 
     document.head.appendChild(styles);
 }
