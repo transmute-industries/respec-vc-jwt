@@ -26,6 +26,12 @@ then configure respect to use the worker to post process like so:
 </head>
 ```
 
+You can choose to display `COSE`, `JWT`, and `SD-JWT` examples together, or individually using the following tags:
+- Together: `vc-jose-cose`
+- COSE: `vc-jose-cose-cose`
+- JWT: `vc-jose-cose-jwt`
+- SD-JWT: `vc-jose-cose-sd-jwt`
+
 ### Credits
 
 Based on https://github.com/transmute-industries/respec-vc-jwt, which was based on the original plugin here https://github.com/digitalbazaar/respec-vc
