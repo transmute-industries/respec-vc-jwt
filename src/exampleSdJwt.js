@@ -1,13 +1,10 @@
-
-
 import yaml from 'yaml'
-import { issuer, text, key } from "@transmute/verifiable-credentials"; 
+import {issuer, key, text} from "@transmute/verifiable-credentials";
 
 import * as jose from 'jose'
 
 export const generateIssuerClaims = (example)=> {
-  const generatedClaimsYaml = yaml.stringify(example).replace(/id\: /g, '!sd id: ').replace(/type\:/g, '!sd type:')
-  return generatedClaimsYaml
+  return yaml.stringify(example).replace(/id\: /g, '!sd id: ').replace(/type\:/g, '!sd type:')
 }
 
 export const generateHolderDisclosure = (example) => {
@@ -17,8 +14,7 @@ export const generateHolderDisclosure = (example) => {
   // disclose types
   const edited2 = edited1.replace(/\!sd type\:/g, `type:`)
   // redact remaining ids
-  const edited3 = edited2.replace(/\!sd id\:/g, `id:`)
-  return edited3
+  return edited2.replace(/\!sd id\:/g, `id:`)
 }
 
 const getSdHtml = (vc) =>{
@@ -39,20 +35,18 @@ ${claims.trim().replace(/\!sd/g, `<span class="sd-jwt-disclosure">!sd</span>`)}
   }
 
 const getCredential = async (privateKey, byteSigner, messageType, messageJson) => {
-  const message = await issuer({
+  return await issuer({
     alg: privateKey.alg,
     type: messageType,
     signer: byteSigner
   }).issue({
-    claimset: new TextEncoder().encode(generateIssuerClaims(messageJson)) 
-  })
-  return message;
+    claimset: new TextEncoder().encode(generateIssuerClaims(messageJson))
+  });
 }
 
 const getPresentation = async (privateKey, byteSigner, messageType, messageJson) => {
-  const credential = await getCredential(privateKey, byteSigner, 'application/vc+ld+json+sd-jwt', messageJson)
   // since examples are always enveloped, and truncated, we never actually process key binding or disclosures
-  return credential
+  return await getCredential(privateKey, byteSigner, 'application/vc+ld+json+sd-jwt', messageJson)
 }
 
 const getBinaryMessage = async (privateKey, messageType, messageJson) =>{
@@ -87,7 +81,7 @@ export const getSdJwtExample = async (privateKey, messageJson) => {
   const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+sd-jwt' : 'application/vp+ld+json+sd-jwt'
   const message = await getBinaryMessage(privateKey, messageType, messageJson)
   const messageEncoded = new TextDecoder().decode(message)
- 
+
   const issuerClaims = generateIssuerClaims(messageJson)
   const messageType2 = 'application/ld+yaml'
 

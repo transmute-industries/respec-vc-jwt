@@ -1,18 +1,15 @@
-
-
-import { issuer, holder, text, key } from "@transmute/verifiable-credentials"; 
+import {holder, issuer, key, text} from "@transmute/verifiable-credentials";
 
 import * as jose from 'jose'
 
 const getCredential = async (privateKey, byteSigner, messageType, messageJson) => {
-  const message = await issuer({
+  return await issuer({
     alg: privateKey.alg,
     type: messageType,
     signer: byteSigner
   }).issue({
     claimset: new TextEncoder().encode(JSON.stringify(messageJson, null, 2))
-  })
-  return message;
+  });
 }
 
 const getPresentation = async (privateKey, byteSigner, messageType, messageJson) => {
@@ -25,15 +22,14 @@ const getPresentation = async (privateKey, byteSigner, messageType, messageJson)
       credential: content
     }
   })
-  const message = await holder({
+  return await holder({
     alg: privateKey.alg,
     type: messageType,
   }).issue({
     signer: byteSigner,
     presentation: messageJson,
     disclosures: disclosures
-  })
-  return message;
+  });
 }
 
 
@@ -44,7 +40,7 @@ const getJwtHtml = (token) =>{
 }
 
 const getBinaryMessage = async (privateKey, messageType, messageJson) =>{
-  
+
   const byteSigner = {
     sign: async (bytes) => {
 
