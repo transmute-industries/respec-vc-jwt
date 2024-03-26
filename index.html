@@ -2,56 +2,55 @@
 <html>
 
 <head>
-    <title>Respec Service Worker Plugin Test</title>
-    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
-    <script src='./dist/main.js'></script>
-    <script type="text/javascript" class="remove">
-        var respecConfig = {
-            group: "vc",
-            specStatus: "unofficial",
-            subtitle: "Test of ReSpec VC",
-            edDraftURI: "https://decentralgabe.github.io/respec-vc-jose-cose/",
-            latestVersion: "https://decentralgabe.github.io/respec-vc-jose-cose/",
-            doJsonLd: false,
-            github: "https://github.com/transmute-industries/respec-vc-jose-cose",
-            includePermalinks: false,
-            editors: [
-                {
-                    name: "Gabe Cohen", url: "https://www.linkedin.com/in/cohengabe/",
-                    company: "Transmute", companyURL: "http://decentralgabe.xyz/"
-                },
-                {
-                    name: "Orie Steele", url: "https://www.linkedin.com/in/or13b/",
-                    company: "Transmute", companyURL: "http://transmute.industries/"
-                }
-            ],
-            authors:
-                [
-                    {
-                        name: "Orie Steele", url: "https://www.linkedin.com/in/or13b/",
-                        company: "Transmute", companyURL: "http://transmute.industries/"
-                    }
-                ],
-            maxTocLevel: 2,
-            inlineCSS: true,
-            postProcess: [
-                window.respecVcJoseCose.processVcJoseCose
-            ]
-        };
-    </script>
+  <title>Respec Service Worker Plugin Test</title>
+  <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
+  <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
+  <script src='./dist/main.js'></script>
+  <script type="text/javascript" class="remove">
+    var respecConfig = {
+      group: "vc",
+      specStatus: "unofficial",
+      subtitle: "Test of ReSpec VC for JOSE and COSE",
+      edDraftURI: "https://decentralgabe.github.io/respec-vc-jose-cose/",
+      latestVersion: "https://decentralgabe.github.io/respec-vc-jose-cose/",
+      doJsonLd: false,
+      github: "https://github.com/transmute-industries/respec-vc-jose-cose",
+      includePermalinks: false,
+      editors: [
+        {
+          name: "Gabe Cohen", url: "https://www.linkedin.com/in/cohengabe/",
+          company: "Block", companyURL: "http://decentralgabe.xyz/"
+        },
+        {
+          name: "Orie Steele", url: "https://www.linkedin.com/in/or13b/",
+          company: "Transmute", companyURL: "http://transmute.industries/"
+        }
+      ],
+      authors: [
+        {
+          name: "Orie Steele", url: "https://www.linkedin.com/in/or13b/",
+          company: "Transmute", companyURL: "http://transmute.industries/"
+        }
+      ],
+      maxTocLevel: 2,
+      inlineCSS: true,
+      postProcess: [
+        window.respecVcJoseCose.processVcJoseCose
+      ]
+    };
+  </script>
 </head>
 
 <body>
 <div id="bench"></div>
 <section id="abstract">
-    <p>Hello respec-plugin!</p>
+  <p>Hello respec-plugin!</p>
 
 
 </section>
 <section>
-    <h2>Credential</h2>
-    <a href="https://w3c.github.io/vc-data-model/#example-a-simple-example-of-a-verifiable-credential">Example 1</a>
+  <h2>Credential</h2>
+  <a href="https://w3c.github.io/vc-data-model/#example-a-simple-example-of-a-verifiable-credential">Example 1</a>
   <pre class="example vc-jose-cose" title="A Verifiable Credential with all 3 types">
 {
   "@context": [
@@ -71,7 +70,7 @@
   }
 }
       </pre>
-    <pre class="example vc-jose-cose-jwt" title="A Verifiable Credential with JWT">
+  <pre class="example vc-jose-cose-jwt" title="A Verifiable Credential with JWT">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -90,7 +89,7 @@
   }
 }
       </pre>
-    <pre class="example vc-jose-cose-sd-jwt" title="A Verifiable Credential with SD-JWT">
+  <pre class="example vc-jose-cose-sd-jwt" title="A Verifiable Credential with SD-JWT">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -109,7 +108,7 @@
   }
 }
       </pre>
-    <pre class="example vc-jose-cose-cose" title="A Verifiable Credential with COSE">
+  <pre class="example vc-jose-cose-cose" title="A Verifiable Credential with COSE">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -131,9 +130,9 @@
 </section>
 
 <section>
-    <h2>Presentation</h2>
-    <a href="https://w3c.github.io/vc-data-model/#example-a-simple-example-of-a-verifiable-presentation">Example 2</a>
-    <pre class="example vc-jose-cose" title="A Verifiable Presentation with all 3 types">
+  <h2>Presentation</h2>
+  <a href="https://w3c.github.io/vc-data-model/#example-a-simple-example-of-a-verifiable-presentation">Example 2</a>
+  <pre class="example vc-jose-cose" title="A Verifiable Presentation with all 3 types">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -159,7 +158,7 @@
   ]
 }
       </pre>
-    <pre class="example vc-jose-cose-jwt" title="A Verifiable Presentation with JWT">
+  <pre class="example vc-jose-cose-jwt" title="A Verifiable Presentation with JWT">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -185,7 +184,7 @@
   ]
 }
       </pre>
-    <pre class="example vc-jose-cose-sd-jwt" title="A Verifiable Presentation with SD-JWT">
+  <pre class="example vc-jose-cose-sd-jwt" title="A Verifiable Presentation with SD-JWT">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -211,7 +210,7 @@
   ]
 }
       </pre>
-    <pre class="example vc-jose-cose-cose" title="A Verifiable Presentation with COSE">
+  <pre class="example vc-jose-cose-cose" title="A Verifiable Presentation with COSE">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",

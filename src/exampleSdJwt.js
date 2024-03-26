@@ -32,7 +32,7 @@ const getDisclosabilityHtml = (claims)=> {
   return `<pre>
 ${claims.trim().replace(/\!sd/g, `<span class="sd-jwt-disclosure">!sd</span>`)}
   </pre>`
-  }
+}
 
 const getCredential = async (privateKey, byteSigner, messageType, messageJson) => {
   return await issuer({
@@ -53,13 +53,13 @@ const getBinaryMessage = async (privateKey, messageType, messageJson) =>{
   const byteSigner = {
     sign: async (bytes) => {
       const jws = await new jose.CompactSign(
-        bytes
+          bytes
       )
-        .setProtectedHeader({ kid: privateKey.kid, alg: privateKey.alg })
-        .sign(await key.importKeyLike({
-          type: 'application/jwk+json',
-          content: new TextEncoder().encode(JSON.stringify(privateKey))
-        }))
+          .setProtectedHeader({ kid: privateKey.kid, alg: privateKey.alg })
+          .sign(await key.importKeyLike({
+            type: 'application/jwk+json',
+            content: new TextEncoder().encode(JSON.stringify(privateKey))
+          }))
       return text.encoder.encode(jws)
     }
   }
