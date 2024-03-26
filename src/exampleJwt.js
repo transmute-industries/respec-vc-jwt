@@ -45,13 +45,13 @@ const getBinaryMessage = async (privateKey, messageType, messageJson) =>{
     sign: async (bytes) => {
 
       const jws = await new jose.CompactSign(
-        bytes
+          bytes
       )
-        .setProtectedHeader({ kid: privateKey.kid, alg: privateKey.alg })
-        .sign(await key.importKeyLike({
-          type: 'application/jwk+json',
-          content: new TextEncoder().encode(JSON.stringify(privateKey))
-        }))
+          .setProtectedHeader({ kid: privateKey.kid, alg: privateKey.alg })
+          .sign(await key.importKeyLike({
+            type: 'application/jwk+json',
+            content: new TextEncoder().encode(JSON.stringify(privateKey))
+          }))
       return text.encoder.encode(jws)
     }
   }
